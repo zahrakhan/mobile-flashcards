@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
-import {white, gray_light} from '../utils/colors'
 
+import {white, gray_light} from '../utils/colors'
+import {addDeck} from '../actions'
 import SubmitButton from './SubmitButton'
 
 class AddDeck extends Component {
@@ -12,8 +14,18 @@ class AddDeck extends Component {
         this.setState({title})
     }
     handleSubmit = () => {
-        // TODO: update redux
+        const {title} = this.state
+        this
+            .props
+            .dispatch(addDeck({title}))
+
+        this.reset()
+        // TODO: to home
+
         // TODO: update db
+    }
+    reset = (title = '') => {
+        this.setState({title})
     }
     render() {
         const {title} = this.state
@@ -53,4 +65,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddDeck
+export default connect()(AddDeck)
