@@ -1,29 +1,39 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
+import {View, Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 
 import {white, gray_light} from '../utils/colors'
 import {addDeck} from '../actions'
 import {saveDeckTitle} from '../utils/api'
 import SubmitButton from './SubmitButton'
+import Alert from './Alert'
 
 class AddDeck extends Component {
     state = {
-        title: ''
+        title: '',
+        error: ''
     }
     handleTitleChange = (title) => {
         this.setState({title})
     }
     handleSubmit = () => {
-        const {title} = this.state
-        this
-            .props
-            .dispatch(addDeck({title}))
+        if (this.isDeckValid()) {
+            const {title} = this.state
+            this
+                .props
+                .dispatch(addDeck({title}))
 
-        this.reset()
-        this.toHome()
+            this.reset()
+            this.toHome()
 
-        saveDeckTitle(title)
+            saveDeckTitle(title)
+        } else {
+            this.setState({error: 'Title is required'})
+        }
+
+    }
+    isDeckValid = () => {
+        return this.state.title || false
     }
     reset = (title = '') => {
         this.setState({title})
@@ -35,7 +45,7 @@ class AddDeck extends Component {
             .dispatch(NavigationActions.back({key: 'Decks'}))
     }
     render() {
-        const {title} = this.state
+        const {title, error} = this.state
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <Text style={styles.heading}>What is the title of your new deck?</Text>
@@ -43,8 +53,12 @@ class AddDeck extends Component {
                     style={styles.input}
                     value={title}
                     autoFocus={true}
+                    placeholder='Title'
                     onChangeText={this.handleTitleChange}/>
-                <SubmitButton onPress={this.handleSubmit}/>
+                <Alert message={error} />
+                <View style={styles.actions}>
+                    <SubmitButton onPress={this.handleSubmit}/>
+                </View>
             </KeyboardAvoidingView>
         )
     }
@@ -69,8 +83,11 @@ const styles = StyleSheet.create({
         padding: 8,
         borderWidth: 1,
         borderColor: gray_light,
-        margin: 50
-    }
+        margin: 10
+    },
+    actions: {
+        marginTop: 30
+    },
 })
 
 export default connect()(AddDeck)
