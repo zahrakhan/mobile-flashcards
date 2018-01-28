@@ -4,6 +4,7 @@ import {Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 
 import {white, gray_light} from '../utils/colors'
 import {addDeck} from '../actions'
+import {saveDeckTitle} from '../utils/api'
 import SubmitButton from './SubmitButton'
 
 class AddDeck extends Component {
@@ -22,7 +23,7 @@ class AddDeck extends Component {
         this.reset()
         // TODO: to home
 
-        // TODO: update db
+        saveDeckTitle(title)
     }
     reset = (title = '') => {
         this.setState({title})
