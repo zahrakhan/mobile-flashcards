@@ -6,6 +6,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation'
 import Decks from './Decks'
 import AddDeck from './AddDeck'
 import DeckDetail from './DeckDetail'
+import AddCard from './AddCard'
 
 import {white, cyan_dark} from '../utils/colors'
 
@@ -54,6 +55,15 @@ const MainNavigator = StackNavigator({
     },
     DeckDetail: {
         screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: cyan_dark
+            }
+        }
+    },
+    AddCard: {
+        screen: AddCard,
         navigationOptions: {
             headerTintColor: white,
             headerStyle: {

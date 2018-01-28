@@ -9,6 +9,6 @@ export function receiveDecks(decks) {
 export function addDeck(deck) {
     return {type: ADD_DECK, deck}
 }
-export function addDeckQuestion(title, card) {
+export function addCard(title, card) {
     return {type: ADD_DECK_QUESTION, title, card}
 }

@@ -14,9 +14,6 @@ class DeckDetail extends Component {
 
         return {title}
     }
-    addCard = () => {}
-
-    startQuiz = () => {}
 
     render() {
         const {
@@ -101,7 +98,7 @@ function mapStateToProps(decks, {navigation}) {
 function mapDispatchToProps(dispatch, {navigation}) {
     const {title} = navigation.state.params
     return {
-        addCard: () => {},
+        addCard: () => navigation.navigate('AddCard', {title}),
         startQuiz: () => {}
     }
 }
