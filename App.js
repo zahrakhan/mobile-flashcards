@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import reducer from './reducers'
 
-import AddDeck from './components/AddDeck'
+import Navigation from './components/Navigation'
 import FlashcardsStatusBar from './components/FlashcardsStatusBar'
 import {teal} from './utils/colors'
 import {logger} from './utils/logger'
@@ -18,7 +18,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <FlashcardsStatusBar backgroundColor={teal} barStyle="light-content"/>
-          <AddDeck/>
+          <Navigation />
         </View>
       </Provider>
     )
