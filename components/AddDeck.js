@@ -21,12 +21,18 @@ class AddDeck extends Component {
             .dispatch(addDeck({title}))
 
         this.reset()
-        // TODO: to home
+        this.toHome()
 
         saveDeckTitle(title)
     }
     reset = (title = '') => {
         this.setState({title})
+    }
+    toHome = () => {
+        this
+            .props
+            .navigation
+            .dispatch(NavigationActions.back({key: 'Decks'}))
     }
     render() {
         const {title} = this.state
