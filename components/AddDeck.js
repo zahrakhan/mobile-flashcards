@@ -36,6 +36,7 @@ class AddDeck extends Component {
                 <TextInput
                     style={styles.input}
                     value={title}
+                    autoFocus={true}
                     onChangeText={this.handleTitleChange}/>
                 <SubmitButton onPress={this.handleSubmit}/>
             </KeyboardAvoidingView>
