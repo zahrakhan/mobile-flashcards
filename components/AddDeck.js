@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, TextInput, StyleSheet} from 'react-native'
+import {Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 import {white, gray_light} from '../utils/colors'
 
 import SubmitButton from './SubmitButton'
@@ -18,14 +18,14 @@ class AddDeck extends Component {
     render() {
         const {title} = this.state
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <Text style={styles.heading}>What is the title of your new deck?</Text>
                 <TextInput
                     style={styles.input}
                     value={title}
                     onChangeText={this.handleTitleChange}/>
                 <SubmitButton onPress={this.handleSubmit}/>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
