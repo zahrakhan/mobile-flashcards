@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
+import {View, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 
 import {white, gray_light} from '../utils/colors'
 import {addCard} from '../actions'
