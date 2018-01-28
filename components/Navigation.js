@@ -1,10 +1,11 @@
 import React from 'react'
 import {StyleSheet, Text, View, Platform} from 'react-native'
-import {FontAwesome, Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
+import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 
 import Decks from './Decks'
 import AddDeck from './AddDeck'
+import DeckDetail from './DeckDetail'
 
 import {white, cyan_dark} from '../utils/colors'
 
@@ -50,6 +51,15 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
+    },
+    DeckDetail: {
+        screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: cyan_dark
+            }
+        }
     }
 })
 

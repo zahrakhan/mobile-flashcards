@@ -2,14 +2,14 @@ import React from 'react'
 import {Text, TouchableOpacity, StyleSheet, Platform} from 'react-native'
 import {white, cyan_dark} from '../utils/colors'
 
-export default function SubmitButton({onPress}) {
+export default function SubmitButton({onPress, children, style}) {
     return (
         <TouchableOpacity
             style={Platform.OS === 'ios'
             ? styles.iosSubmitBtn
             : styles.AndroidSubmitBtn}
             onPress={onPress}>
-            <Text style={styles.submitBtnText}>Submit</Text>
+            <Text style={[styles.submitBtnText, style]}>{children? children: `Submit`}</Text>
         </TouchableOpacity>
     )
 }

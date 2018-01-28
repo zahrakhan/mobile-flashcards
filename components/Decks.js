@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList, StyleSheet, Platform} from 'react-native'
+import {Text, View, FlatList, StyleSheet, Platform, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 
 import {receiveDecks} from '../actions'
@@ -17,10 +17,12 @@ class Decks extends Component {
     renderItem = ({item}) => {
         const {title, questions} = item
         return (
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>{title}</Text>
-                <Text style={styles.itemDetail}>{`${questions.length? questions.length: `No`} cards`}</Text>
-            </View>
+                <TouchableOpacity
+                    style={styles.item}
+                    onPress={() => this.props.navigation.navigate('DeckDetail', {title})}>
+                    <Text style={styles.itemTitle}>{title}</Text>
+                    <Text style={styles.itemDetail}>{`${questions.length? questions.length: `No`} cards`}</Text>
+                </TouchableOpacity>
         )
     }
 
