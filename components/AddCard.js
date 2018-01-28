@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
+import {View, Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 
-import {white, gray_light} from '../utils/colors'
+import {white, gray_light, red} from '../utils/colors'
 import {addCard} from '../actions'
 import {addCardToDeck} from '../utils/api'
 import SubmitButton from './SubmitButton'
@@ -24,16 +24,23 @@ class AddCard extends Component {
         this.setState({answer})
     }
     handleSubmit = () => {
-        const {title} = this.props.navigation.state.params
+        if (this.isCardValid()) {
+            const {title} = this.props.navigation.state.params
+            const {question, answer} = this.state
+            this
+                .props
+                .dispatch(addCard(title, {question, answer}))
+            this.reset()
+            this.goBack()
+
+            addCardToDeck(title, {question, answer})
+        } else {
+            this.setState({error: 'All fields are required'})
+        }
+    }
+    isCardValid = () => {
         const {question, answer} = this.state
-        this
-            .props
-            .dispatch(addCard(title, {question, answer}))
-        this.reset()
-        this.goBack()
-
-        addCardToDeck(title, {question, answer})
-
+        return question && answer
     }
     reset = (question = '', answer = '') => {
         this.setState({question, answer})
@@ -45,7 +52,7 @@ class AddCard extends Component {
             .goBack()
     }
     render() {
-        const {question, answer} = this.state
+        const {question, answer, error} = this.state
         return (
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <TextInput
@@ -60,7 +67,10 @@ class AddCard extends Component {
                     autoFocus={true}
                     placeholder='Answer'
                     onChangeText={this.handleAnswerChange}/>
-                <SubmitButton onPress={this.handleSubmit}/>
+                {error && <Text style={styles.error}>{error}</Text>}
+                <View style={styles.actions}>
+                    <SubmitButton onPress={this.handleSubmit}/>
+                </View>
             </KeyboardAvoidingView>
         )
     }
@@ -74,18 +84,19 @@ const styles = StyleSheet.create({
         padding: 25,
         backgroundColor: white
     },
-    heading: {
-        fontSize: 30,
-        paddingTop: 20,
-        textAlign: 'center'
-    },
     input: {
         width: 300,
         height: 44,
         padding: 8,
         borderWidth: 1,
         borderColor: gray_light,
-        margin: 50
+        margin: 10
+    },
+    actions: {
+        marginTop: 30
+    },
+    error: {
+        color: red
     }
 })
 
