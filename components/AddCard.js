@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {View, Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
 
-import {white, gray_light, red} from '../utils/colors'
+import {white, gray_light} from '../utils/colors'
 import {addCard} from '../actions'
 import {addCardToDeck} from '../utils/api'
 import SubmitButton from './SubmitButton'
+import Alert from './Alert'
 
 class AddCard extends Component {
     static navigationOptions = ({navigation}) => {
@@ -67,7 +68,7 @@ class AddCard extends Component {
                     autoFocus={true}
                     placeholder='Answer'
                     onChangeText={this.handleAnswerChange}/>
-                {error && <Text style={styles.error}>{error}</Text>}
+                <Alert message={error} />
                 <View style={styles.actions}>
                     <SubmitButton onPress={this.handleSubmit}/>
                 </View>
@@ -95,9 +96,6 @@ const styles = StyleSheet.create({
     actions: {
         marginTop: 30
     },
-    error: {
-        color: red
-    }
 })
 
 export default connect()(AddCard)
