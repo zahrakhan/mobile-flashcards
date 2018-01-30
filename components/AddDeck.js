@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {View, Text, KeyboardAvoidingView, TextInput, StyleSheet} from 'react-native'
-
+import {NavigationActions} from 'react-navigation'
 import {white, gray_light} from '../utils/colors'
 import {addDeck} from '../actions'
 import {saveDeckTitle} from '../utils/api'
@@ -42,7 +42,7 @@ class AddDeck extends Component {
         this
             .props
             .navigation
-            .dispatch(NavigationActions.back({key: 'Decks'}))
+            .dispatch(NavigationActions.back())
     }
     render() {
         const {title, error} = this.state
