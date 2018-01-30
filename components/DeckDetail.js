@@ -7,7 +7,6 @@ import {white, cyan_dark, gray} from '../utils/colors';
 import TextButton from './TextButton'
 import SubmitButton from './SubmitButton'
 
-
 class DeckDetail extends Component {
     static navigationOptions = ({navigation}) => {
         const {title} = navigation.state.params
@@ -41,13 +40,13 @@ class DeckDetail extends Component {
                             : `No`} cards`}</Text>
                 </View>
                 <View style={styles.actions}>
-                    <TextButton style={styles.addButton} onPress={addCard}>
+                    <TextButton
+                        style={styles.addButton}
+                        onPress={addCard}>
                         +Add Card
                     </TextButton>
-                    {questions.length && (
-                    <SubmitButton onPress={startQuiz}>
-                        Start Quiz
-                    </SubmitButton>
+                    {questions.length > 0 && (
+                        <SubmitButton onPress={startQuiz}>Start Quiz</SubmitButton>
                     )}
                 </View>
             </View>
