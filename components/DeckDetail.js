@@ -35,7 +35,8 @@ class DeckDetail extends Component {
             ]}>
                 <View style={styles.item}>
                     <Text style={styles.itemTitle}>{title}</Text>
-                    <Text style={styles.itemDetail}>{`${questions.length
+                    <Text style={styles.itemDetail}>
+                        {`${questions.length
                             ? questions.length
                             : `No`} cards`}</Text>
                 </View>
@@ -43,9 +44,11 @@ class DeckDetail extends Component {
                     <TextButton style={styles.addButton} onPress={addCard}>
                         +Add Card
                     </TextButton>
+                    {questions.length && (
                     <SubmitButton onPress={startQuiz}>
                         Start Quiz
                     </SubmitButton>
+                    )}
                 </View>
             </View>
         )
