@@ -24,7 +24,7 @@ class AddDeck extends Component {
                 .dispatch(addDeck({title}))
 
             this.reset()
-            this.toHome()
+            this.toDetail(title)
 
             saveDeckTitle(title)
         } else {
@@ -38,11 +38,11 @@ class AddDeck extends Component {
     reset = (title = '') => {
         this.setState({title})
     }
-    toHome = () => {
+    toDetail = (title) => {
         this
             .props
             .navigation
-            .dispatch(NavigationActions.back())
+            .navigate('DeckDetail', {title})
     }
     render() {
         const {title, error} = this.state
@@ -55,7 +55,7 @@ class AddDeck extends Component {
                     autoFocus={true}
                     placeholder='Title'
                     onChangeText={this.handleTitleChange}/>
-                <Alert message={error} />
+                <Alert message={error}/>
                 <View style={styles.actions}>
                     <SubmitButton onPress={this.handleSubmit}/>
                 </View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     actions: {
         marginTop: 30
-    },
+    }
 })
 
 export default connect()(AddDeck)
