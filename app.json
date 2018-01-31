@@ -2,7 +2,7 @@
   "expo": {
       "sdkVersion": "25.0.0",
       "orientation": "portrait",
-      "name": "MobileFlashcards",
+      "name": "MobileFlashcards-ZK",
       "description": "Mobile Flashcards - The final assessment project for Udacity's React Native course",
       "slug": "mobileflashcards",
       "version": "1.0"
