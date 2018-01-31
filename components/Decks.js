@@ -56,7 +56,7 @@ class Decks extends Component {
         if (!list_data.length) {
             return (
                 <View style={styles.center}>
-                    <Text>
+                    <Text style={styles.noDataText}>
                         Click on Add Deck to start studying.
                     </Text>
                 </View>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         color: gray
     },
     noDataText: {
-        fontSize: 20,
+        fontSize: 16,
         paddingTop: 20,
         paddingBottom: 20
     }
