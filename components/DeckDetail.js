@@ -23,7 +23,7 @@ class DeckDetail extends Component {
             addCard,
             startQuiz
         } = this.props
-
+        
         return (
             <View
                 style={[
@@ -101,7 +101,7 @@ function mapDispatchToProps(dispatch, {navigation}) {
     const {title} = navigation.state.params
     return {
         addCard: () => navigation.navigate('AddCard', {title}),
-        startQuiz: () => {}
+        startQuiz: () => navigation.navigate('Quiz', {title})
     }
 }
 

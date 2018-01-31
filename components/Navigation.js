@@ -7,6 +7,7 @@ import Decks from './Decks'
 import AddDeck from './AddDeck'
 import DeckDetail from './DeckDetail'
 import AddCard from './AddCard'
+import Quiz from './Quiz'
 
 import {white, cyan_dark} from '../utils/colors'
 
@@ -65,6 +66,16 @@ export default Navigation = StackNavigator({
     AddCard: {
         screen: AddCard,
         navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: cyan_dark
+            }
+        }
+    },
+    Quiz: {
+        screen: Quiz,
+        navigationOptions: {
+            title: 'Quiz',
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: cyan_dark
