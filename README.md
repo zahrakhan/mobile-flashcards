@@ -1,16 +1,17 @@
 # Mobile FlashCards App
 This is my version of *Flashcards* project for Udacity React Nano degree.
 
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
-
-Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
-
-## Test Platforms
+## Tested on Platforms
 
 This application has been tested on
 
 * iOS Simulator - iPhone 7 iOS 10.2
 * OnePlus 2 Phone - Android 6.0.1 with Expo app
+
+This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+
+Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
+
 
 ## Table of Contents
 
