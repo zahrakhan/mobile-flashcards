@@ -12,6 +12,7 @@ import {connect} from 'react-redux'
 
 import {receiveDecks} from '../actions'
 import {getDecks} from '../utils/api'
+import {setLocalNotification} from '../utils/notification'
 import {white, cyan_dark, gray, gray_lighter} from '../utils/colors'
 
 class Decks extends Component {
@@ -24,6 +25,8 @@ class Decks extends Component {
         getDecks()
             .then((decks) => dispatch(receiveDecks(decks)))
             .then(() => this.setState({isReady: true}))
+
+        setLocalNotification()
     }
 
     keyExtractor = (item, index) => item.title

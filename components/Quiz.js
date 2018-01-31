@@ -1,12 +1,5 @@
 import React, {Component} from 'react'
-import {
-    Text,
-    View,
-    FlatList,
-    StyleSheet,
-    Platform,
-    TouchableOpacity
-} from 'react-native'
+import {Text, View, StyleSheet, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {FontAweome, Ionicons} from '@expo/vector-icons'
 
@@ -20,6 +13,7 @@ import {
     green,
     red
 } from '../utils/colors'
+import {clearLocalNotification, setLocalNotification} from '../utils/notification'
 
 EyeIcon = () => (<Ionicons
     name={Platform === 'ios'
@@ -69,6 +63,9 @@ class Quiz extends Component {
     restartQuiz = () => {
         this.updateQuizState()
     }
+    resetDailyQuizNotification() {
+        clearLocalNotification().then(setLocalNotification)
+    }
     render() {
         const {title, questions} = this.props.deck
         const {showAnswer, counter, score} = this.state
@@ -110,13 +107,14 @@ class Quiz extends Component {
             )
         } else {
             const result = ((score / total_cards) * 100).toFixed(2)
+            this.resetDailyQuizNotification()
             return (
                 <View style={[styles.container, styles.backgroundColor]}>
                     <View style={styles.center}>
                         <Text style={styles.itemTitle}>{this.getScoreMessage(result)}</Text>
                         <TextButton onPress={this.restartQuiz}>
                             <RestartIcon/>
-                            Restart Quiz
+                            {` Restart Quiz`}
                         </TextButton>
                     </View>
                 </View>
