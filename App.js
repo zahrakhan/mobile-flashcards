@@ -7,10 +7,12 @@ import reducer from './reducers'
 import Navigation from './components/Navigation'
 import FlashcardsStatusBar from './components/FlashcardsStatusBar'
 import {teal} from './utils/colors'
-import {logger} from './utils/logger'
+// import {logger} from './utils/logger'
 
-const middleware = applyMiddleware(logger)
-let store = createStore(reducer, middleware)
+// const middleware = applyMiddleware(logger)
+// let store = createStore(reducer, middleware)
+
+let store = createStore(reducer)
 
 export default class App extends React.Component {
   render() {
