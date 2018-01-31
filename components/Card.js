@@ -70,6 +70,14 @@ export default class Card extends Component {
                 ],
                 outputRange: ['180deg', '360deg']
             })
+        this.backOpacity = this
+            .animatedValue
+            .interpolate({
+                inputRange: [
+                    89, 90
+                ],
+                outputRange: [0, 1]
+            })
     }
     flipCard = () => {
         this.setState((state) => ({
@@ -107,7 +115,9 @@ export default class Card extends Component {
                 {
                     rotateY: this.backInterpolate
                 }
-            ]
+
+            ],
+            opacity: this.backOpacity
         }
         const {cardNumber, totalCards, question, answer} = this.props
         const counter = `${cardNumber}/${totalCards}`
