@@ -20,6 +20,13 @@ RestartIcon = () => (<Ionicons
     name={Platform === 'ios'
     ? 'ios-refresh'
     : 'md-refresh'}
+    size={16}
+    color={cyan_dark}/>)
+
+BackIcon = () => (<Ionicons
+    name={Platform === 'ios'
+    ? 'ios-arrow-back'
+    : 'md-arrow-round-back'}
     size={15}
     color={cyan_dark}/>)
 
@@ -50,11 +57,18 @@ class Quiz extends Component {
                 : 'Wohoo'
         return `${exclamation}! You answered ${score}% questions correctly.`
     }
+    resetDailyQuizNotification() {
+        clearLocalNotification().then(setLocalNotification)
+    }
+
     restartQuiz = () => {
         this.updateQuizState()
     }
-    resetDailyQuizNotification() {
-        clearLocalNotification().then(setLocalNotification)
+    goBack = () => {
+        this
+            .props
+            .navigation
+            .goBack()
     }
     render() {
         const {title, questions} = this.props.deck
@@ -88,8 +102,11 @@ class Quiz extends Component {
                 <View style={[styles.container, styles.quizResult]}>
                     <View style={styles.center}>
                         <Text style={styles.quizResultTitle}>{this.getScoreMessage(result)}</Text>
-                        <TextButton onPress={this.restartQuiz}>
-                            <RestartIcon/> {` Restart Quiz`}
+                        <TextButton style={styles.quizResultButton} onPress={this.restartQuiz}>
+                            <RestartIcon/>{` Restart Quiz`}
+                        </TextButton>
+                        <TextButton style={styles.quizResultButton} onPress={this.goBack}>
+                            <BackIcon/>{` Back to Deck`}
                         </TextButton>
                     </View>
                 </View>
@@ -113,6 +130,9 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30
     },
+    actions: {
+        flex: 2
+    },
     quizResult: {
         backgroundColor: white
     },
@@ -120,10 +140,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        paddingBottom: 10
+        marginBottom: 30
     },
-    actions: {
-        flex: 2
+    quizResultButton: {
+        fontSize: 17,
+        marginBottom: 5
     }
 })
 
