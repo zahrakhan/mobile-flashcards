@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {Text, View, StyleSheet, Platform} from 'react-native'
 import {connect} from 'react-redux'
-import {FontAweome, Ionicons} from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons'
 
 import SubmitButton from './SubmitButton'
 import TextButton from './TextButton'
+import Card from './Card'
 import {
     white,
     cyan_dark,
@@ -14,13 +15,6 @@ import {
     red
 } from '../utils/colors'
 import {clearLocalNotification, setLocalNotification} from '../utils/notification'
-
-EyeIcon = () => (<Ionicons
-    name={Platform === 'ios'
-    ? 'ios-eye'
-    : 'md-eye'}
-    size={15}
-    color={red}/>)
 
 RestartIcon = () => (<Ionicons
     name={Platform === 'ios'
@@ -32,26 +26,22 @@ RestartIcon = () => (<Ionicons
 class Quiz extends Component {
     state = {
         score: 0,
-        counter: 0,
-        showAnswer: false
+        counter: 0
     }
     handleCorrectAnswer = () => {
-        const {score, counter, showAnswer} = this.state
-        this.updateQuizState(score + 1, counter + 1, false)
+        const {score, counter} = this.state
+        this.updateQuizState(score + 1, counter + 1)
     }
 
     handleIncorrectAnswer = () => {
-        const {score, counter, showAnswer} = this.state
-        this.updateQuizState(score, counter + 1, false)
+        const {score, counter} = this.state
+        this.updateQuizState(score, counter + 1)
     }
-    updateQuizState = (score = 0, counter = 0, showAnswer = false) => {
-        this.setState({score, counter, showAnswer})
+
+    updateQuizState = (score = 0, counter = 0) => {
+        this.setState({score, counter})
     }
-    flipCard = () => {
-        this.setState((state) => ({
-            showAnswer: !state.showAnswer
-        }))
-    }
+
     getScoreMessage = (score) => {
         const exclamation = score < 35
             ? 'Opps'
@@ -68,28 +58,14 @@ class Quiz extends Component {
     }
     render() {
         const {title, questions} = this.props.deck
-        const {showAnswer, counter, score} = this.state
+        const {counter, score} = this.state
         const card = questions[counter]
         const total_cards = questions.length
         if (counter < total_cards) {
             return (
                 <View style={styles.container}>
-                    <View style={[styles.item, styles.quizCard]}>
-                        <Text style={styles.quizCounter}>{`${counter + 1}/${total_cards}`}</Text>
-                        <Text style={styles.itemTitle}>{showAnswer
-                                ? card.answer
-                                : card.question}</Text>
-
-                        <TextButton
-                            style={{
-                            color: red,
-                            fontSize: 16
-                        }}
-                            onPress={this.flipCard}>
-                            <EyeIcon/> {showAnswer
-                                ? ` Question`
-                                : ` Answer`}
-                        </TextButton>
+                    <View style={styles.card_container}>
+                        <Card cardNumber={counter + 1} totalCards={total_cards} {...card}/>
                     </View>
                     <View style={[styles.actions, styles.center]}>
                         <SubmitButton
@@ -109,12 +85,11 @@ class Quiz extends Component {
             const result = ((score / total_cards) * 100).toFixed(2)
             this.resetDailyQuizNotification()
             return (
-                <View style={[styles.container, styles.backgroundColor]}>
+                <View style={[styles.container, styles.quizResult]}>
                     <View style={styles.center}>
-                        <Text style={styles.itemTitle}>{this.getScoreMessage(result)}</Text>
+                        <Text style={styles.quizResultTitle}>{this.getScoreMessage(result)}</Text>
                         <TextButton onPress={this.restartQuiz}>
-                            <RestartIcon/>
-                            {` Restart Quiz`}
+                            <RestartIcon/> {` Restart Quiz`}
                         </TextButton>
                     </View>
                 </View>
@@ -128,6 +103,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: gray_lighter
     },
+    card_container: {
+        flex: 1
+    },
     center: {
         flex: 1,
         justifyContent: 'center',
@@ -135,44 +113,14 @@ const styles = StyleSheet.create({
         marginLeft: 30,
         marginRight: 30
     },
-    item: {
-        backgroundColor: white,
-        borderRadius: Platform.OS === 'ios'
-            ? 16
-            : 2,
-        padding: 30,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 17,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowRadius: 3,
-        shadowOpacity: 0.8,
-        shadowColor: 'rgba(0, 0, 0, 0.24)',
-        shadowOffset: {
-            width: 0,
-            height: 3
-        }
-    },
-    quizCard: {
-        flex: 1,
-        justifyContent: 'space-between'
-    },
-    quizCounter: {
-        fontWeight: 'bold'
-    },
     quizResult: {
         backgroundColor: white
     },
-    itemTitle: {
+    quizResultTitle: {
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
         paddingBottom: 10
-    },
-    itemDetail: {
-        fontSize: 16,
-        color: gray
     },
     actions: {
         flex: 2
